@@ -7,14 +7,24 @@ from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Dense, LSTM, Dropout
 
 
-def predict_stocks(data, stock, days, hidden_layers, nodes, training_epochs):
+
+def preprocesing(data, stock, days, features):
+    #Get stock data for specific stock
     stock_data = data[data['ticker_symbol'] == stock].copy()
+
+    #Drops features not in feature list 
+    for i in range(5):
+        if i not in features:
+            stock_data = stock_data.drop(axis = 1, index = i + 2)
+
+    #Split data into testing and training
     training_data_0 = stock_data[stock_data['day_date'] < '2019-01-01'].copy()
     testing_data = stock_data[stock_data['day_date'] >= '2019-01-01'].copy()
     
     training_data = training_data_0.drop(['ticker_symbol', 'day_date'], axis=1)
     scaler = MinMaxScaler()
     training_data = scaler.fit_transform(training_data)
+    scale = 1/scaler.scale_[0]
 
     X_train = []
     y_train = []
@@ -23,6 +33,24 @@ def predict_stocks(data, stock, days, hidden_layers, nodes, training_epochs):
         X_train.append(training_data[i-days:i])
         y_train.append(training_data[i, 0])
     X_train, y_train = np.array(X_train), np.array(y_train)
+
+    past_days = training_data_0.tail(days)
+    inputs = past_days.append(testing_data, ignore_index=True)
+    inputs = inputs.drop(['ticker_symbol', 'day_date'], axis=1)
+    inputs = scaler.transform(inputs)
+
+    X_test = []
+    y_test = []
+
+    for i in range(days, inputs.shape[0]):
+        X_test.append(inputs[i-days:i])
+        y_test.append(inputs[i, 0])
+    X_test, y_test = np.array(X_test), np.array(y_test)
+
+    return X_train, y_train, X_test, y_test, scale
+
+
+def predict_stocks(X_train, y_train, X_test, y_test, scale, stock, days, hidden_layers, nodes, training_epochs):
 
     regression = Sequential()
 
@@ -41,21 +69,8 @@ def predict_stocks(data, stock, days, hidden_layers, nodes, training_epochs):
     regression.compile(optimizer='adam', loss='mean_squared_error')
     regression.fit(X_train, y_train, epochs=training_epochs, batch_size=32)
 
-    past_days = training_data_0.tail(days)
-    inputs = past_days.append(testing_data, ignore_index=True)
-    inputs = inputs.drop(['ticker_symbol', 'day_date'], axis=1)
-    inputs = scaler.transform(inputs)
-
-    X_test = []
-    y_test = []
-
-    for i in range(days, inputs.shape[0]):
-        X_test.append(inputs[i-days:i])
-        y_test.append(inputs[i, 0])
-    X_test, y_test = np.array(X_test), np.array(y_test)
-
     y_pred = regression.predict(X_test)
-    scale = 1/scaler.scale_[0]
+    
     y_pred = y_pred*scale
     y_test = y_test*scale
 
