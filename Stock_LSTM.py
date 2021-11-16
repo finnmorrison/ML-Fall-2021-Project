@@ -7,8 +7,6 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Dense, LSTM, Dropout
 
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-
 
 """
 To-Do:
@@ -180,34 +178,6 @@ def linear_regression(data, stock, feature):
     plt.plot(x, y, color='k')
 
 
-
-#In Progress
-def sentimentRegression(data, stock, tweet_ids, tweets):
-    stock_data = data[data['ticker_symbol'] == stock].copy()
-    stock_ids = tweet_ids[tweet_ids['ticker_symbol'] == stock]['tweet_id'].tolist()
-    mask = tweets['tweet_id'].isin(stock_ids)
-    stock_tweets = tweets.loc[mask]
-    stock_tweets_strings = stock_tweets['body'].tolist()
-    stock_tweets_dates = stock_tweets['post_date'].tolist()
-    stock_tweets_dates = list(pd.to_datetime(stock_tweets_dates, unit='s').strftime('%Y-%m-%d'))
-    twitter_data = list(zip(stock_tweets_strings, stock_tweets_dates))
-
-    analyzer = SentimentIntensityAnalyzer()
-
-    sentiments = []
-    prev_date = twitter_data[0][1]
-    avg_sentiment = 0
-    total = 0
-    for (tweet, date) in twitter_data:
-        if (date != prev_date):
-            avg_sentiment = avg_sentiment / total
-            sentiments.append((avg_sentiment, prev_date))
-            avg_sentiment = analyzer.polarity_scores(tweet)
-            total = 1
-        else:
-            avg_sentiment += analyzer.polarity_scores(tweet)
-            total += 1
-        prev_date = date
 
 
 
