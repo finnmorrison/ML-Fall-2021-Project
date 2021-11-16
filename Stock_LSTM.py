@@ -45,9 +45,11 @@ def preprocessing(data, stock, days, features=[0,1,2,3]):
     stock_data = data[data['ticker_symbol'] == stock].copy()
 
     #Drops features not in feature list 
+    dropped_features = []
     for i in range(4):
         if i not in features:
-            stock_data = stock_data.drop(axis = 1, index = i + 3)
+            dropped_features.append(i+3)
+    stock_data.drop(columns = stock_data.columns[dropped_features], axis=1, inplace=True)
 
     #Split data into testing and training, using 8 years and 2 years from Train/Test Split
     training_data_0 = stock_data[stock_data['day_date'] < '2019-01-01'].copy()
@@ -132,33 +134,46 @@ def predict_stocks_LSTM(X_train, y_train, X_test, y_test, scale, days, hidden_la
     return rmse
 
 
-def linear_regression(data, stock, features):
+def linear_regression(data, stock, feature):
 
     stock_data = data[data['ticker_symbol'] == stock].copy()
 
-    #Drops features not in feature list 
-    for i in range(5):
-        if i not in features:
-            stock_data = stock_data.drop(axis = 1, index = i + 2)
+    #Drops features not in feature list
+    dropped_features = [] 
+    for i in range(4):
+        if i not in feature:
+            dropped_features.append(i+3)
+    stock_data.drop(columns = stock_data.columns[dropped_features], axis=1, inplace=True)
 
     #Split data into testing and training, using 8 years and 2 years from Train/Test Split
     training_data_0 = stock_data[stock_data['day_date'] < '2019-01-01'].copy()
     testing_data = stock_data[stock_data['day_date'] >= '2019-01-01'].copy()
     
     training_data = training_data_0.drop(['ticker_symbol', 'day_date'], axis=1)
+    testing_data = testing_data.drop(['ticker_symbol', 'day_date'], axis=1)
     scaler = MinMaxScaler()
     training_data = scaler.fit_transform(training_data)
     scale = 1/scaler.scale_[0]
 
+    print(training_data)
+    X_train = training_data[:,1]
+    print(X_train)
+    y_train = training_data[:,0]
+    print(y_train)
+
+    testing_data = scaler.transform(testing_data)
+    X_test = testing_data[:,1]
+    y_test = testing_data[:,0]
+
     linear_model = Sequential()
     linear_model.add(Dense(units=1))
 
-    linear_model.compile(optimzer='adam', loss='mean_absolute_error')
+    linear_model.compile(optimizer='adam', loss='mean_absolute_error')
     linear_model.fit(X_train, y_train, epochs=100, verbose=0, validation_split=0.2)
 
     y_pred = linear_model.evaluate(X_test, y_test)
 
-    x = tf.linspace(0.0, 300, 301)
+    x = np.linspace(0.0, 1, 100)
     y = linear_model.predict(x)
 
     plt.scatter(X_train, y_train)
