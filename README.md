@@ -9,8 +9,21 @@ Our pipeline is split into stages: clustering, sentiment analysis and a predicti
 The main method we have explored thus far is using a Recurrent Neural Network to build a model of stock price prediction. A Recurrent Neural Network (RNN) differs from a standard fully-connected Neural Network in that the previous output of a particular node will act as an input. This makes a RNN useful for time series data, where an input is dependent on previous inputs. In particular we are looking at a Long Short-Term Memory, LSTM, which is a specific architecture for an RNN where data at one time step can affect the neural network arbitrarily far in time. This is beneficail for stock data in which longer time periods than just the previous day stock price 
 
 
-## Potential Results/Discussion
-By looking at company stock data on twitter, we would hope to accurately predict the stock prices of correlated companies. While we do expect there to be a margin of error in the predicted prices, we plan to minimize this by correlating companies from our training dataset in a precise manner. Overall, researching tweets to predict stock market changes could very well encourage new involvement within the stock market. A successful prediction could have significant implications; by determining the movement of future stock prices, we would be able to increase profit opportunities for potential investors.
+## Results/Discussion
+
+*For now I'm just going to do a rough outline of the results*
+
+For selecting which features to use, we chose a simple architecture for our LSTM and ran cross-validation on all possible combinations of the stock features: Close Value, Volume, Open Value, High Value, Low Value, Avg Daily Sentiment. Due to the way we are currently structuring our code, Close Value is always used a feature.
+
+The feature combinations were chosen based off which ones had the lowest average RMSE after performing 10-folds cross-validation on the training data.
+
+Best Feature Combinations (Apple):
+  1. (Close Value), Avg. Sentiment
+  2. (Close Value), Open Value, High Value, Low Value, Avg. Sentiment
+  3. (Close Value), Volume, Open Value, High Value
+  4. (Close Value), High Value, Low Value, Avg. Sentiment
+  5. (Close Value), Open Value, Avg. Sentiment
+
 
 ## References
 
