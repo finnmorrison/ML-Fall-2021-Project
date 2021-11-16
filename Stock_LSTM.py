@@ -1,10 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
+import datetime
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
 from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Dense, LSTM, Dropout
+
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 
 """
@@ -35,14 +38,16 @@ Arguments:
 - days: How many days of data are going to be used to predict a stock price
 - features: List of integers detailing which features are going to be kept
 """
-def preprocessing(data, stock, days, features=[0,1,2,3,4]):
+
+
+def preprocessing(data, stock, days, features=[0,1,2,3]):
     #Get stock data for specific stock
     stock_data = data[data['ticker_symbol'] == stock].copy()
 
     #Drops features not in feature list 
-    for i in range(5):
+    for i in range(4):
         if i not in features:
-            stock_data = stock_data.drop(axis = 1, index = i + 2)
+            stock_data = stock_data.drop(axis = 1, index = i + 3)
 
     #Split data into testing and training, using 8 years and 2 years from Train/Test Split
     training_data_0 = stock_data[stock_data['day_date'] < '2019-01-01'].copy()
@@ -125,5 +130,72 @@ def predict_stocks_LSTM(X_train, y_train, X_test, y_test, scale, days, hidden_la
     rmse = np.sqrt((1/(y_pred.size)) * np.sum(np.square(y_pred - y_test)))
     print(rmse)
     return rmse
+
+
+def linear_regression(data, stock, features):
+
+    stock_data = data[data['ticker_symbol'] == stock].copy()
+
+    #Drops features not in feature list 
+    for i in range(5):
+        if i not in features:
+            stock_data = stock_data.drop(axis = 1, index = i + 2)
+
+    #Split data into testing and training, using 8 years and 2 years from Train/Test Split
+    training_data_0 = stock_data[stock_data['day_date'] < '2019-01-01'].copy()
+    testing_data = stock_data[stock_data['day_date'] >= '2019-01-01'].copy()
+    
+    training_data = training_data_0.drop(['ticker_symbol', 'day_date'], axis=1)
+    scaler = MinMaxScaler()
+    training_data = scaler.fit_transform(training_data)
+    scale = 1/scaler.scale_[0]
+
+    linear_model = Sequential()
+    linear_model.add(Dense(units=1))
+
+    linear_model.compile(optimzer='adam', loss='mean_absolute_error')
+    linear_model.fit(X_train, y_train, epochs=100, verbose=0, validation_split=0.2)
+
+    y_pred = linear_model.evaluate(X_test, y_test)
+
+    x = tf.linspace(0.0, 300, 301)
+    y = linear_model.predict(x)
+
+    plt.scatter(X_train, y_train)
+    plt.plot(x, y, color='k')
+
+
+
+#In Progress
+def sentimentRegression(data, stock, tweet_ids, tweets):
+    stock_data = data[data['ticker_symbol'] == stock].copy()
+    stock_ids = tweet_ids[tweet_ids['ticker_symbol'] == stock]['tweet_id'].tolist()
+    mask = tweets['tweet_id'].isin(stock_ids)
+    stock_tweets = tweets.loc[mask]
+    stock_tweets_strings = stock_tweets['body'].tolist()
+    stock_tweets_dates = stock_tweets['post_date'].tolist()
+    stock_tweets_dates = list(pd.to_datetime(stock_tweets_dates, unit='s').strftime('%Y-%m-%d'))
+    twitter_data = list(zip(stock_tweets_strings, stock_tweets_dates))
+
+    analyzer = SentimentIntensityAnalyzer()
+
+    sentiments = []
+    prev_date = twitter_data[0][1]
+    avg_sentiment = 0
+    total = 0
+    for (tweet, date) in twitter_data:
+        if (date != prev_date):
+            avg_sentiment = avg_sentiment / total
+            sentiments.append((avg_sentiment, prev_date))
+            avg_sentiment = analyzer.polarity_scores(tweet)
+            total = 1
+        else:
+            avg_sentiment += analyzer.polarity_scores(tweet)
+            total += 1
+        prev_date = date
+
+
+
+
 
 
