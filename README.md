@@ -88,31 +88,6 @@ Worst Day / Feature Combinations (Google):
 4.	Days = 5 / Features = (Close Value), **RMSE: 2916.9163665894507**
 5.	Days = 5 / Features = (Close Value), High Value, **RMSE: 2746.198119766924**
 
-
-## References
-
-[1] Using Twitter Attribute Information to Predict the Stock Market, https://arxiv.org/abs/2105.01402
-
-[2] k-Shape: Efficient and Accurate Clustering of Time Series, http://people.cs.uchicago.edu/~jopa/Papers/PaparrizosSIGMOD2015.pdf
-
-[3] Effectiveness of Artificial Intelligence in Stock Market Prediction based on Machine Learning, https://arxiv.org/abs/2107.01031
-
-[4] VADER, https://github.com/cjhutto/vaderSentiment
-
-[5] Values of Top NASDAQ Companies from 2010 to 2020, https://www.kaggle.com/omermetinn/values-of-top-nasdaq-copanies-from-2010-to-2020
-
-[6] Tweets about the Top Companies from 2015 to 2020, https://www.kaggle.com/omermetinn/tweets-about-the-top-companies-from-2015-to-2020
-
-[7] Understanding LSTM Networks, https://colah.github.io/posts/2015-08-Understanding-LSTMs/
-
-## Project Member Responsibilities
-Christopher Raulston - Mining/Analyzing Tweets \
-Finn Morrison - Hierarchical Clustering \
-William Sheppard - Sentimental Analysis \
-Caleb Partin - Predictive Model \
-Mohit Aggarwal - Analysis of Results
-
-
 The feature combinations were chosen based off which ones had the lowest average RMSE after performing 10-folds cross-validation on the training data. This was performed using the RNN archiecture of taking into consideration 30 previous days of data, 1 hidden layer with 30 nodes, and a dropout of 0.2.
 
 Best Feature Combinations (Amazon):
@@ -139,3 +114,27 @@ We can analyze how each of these combination of features does on the test set:
 
   8. (Close Value), Volume, Open Value, Low Value, **RMSE: 38282.51159986677**
 ![image](https://user-images.githubusercontent.com/47957718/142135193-c2905446-8e1d-4638-9095-3239815984aa.png)
+
+## References
+
+[1] Using Twitter Attribute Information to Predict the Stock Market, https://arxiv.org/abs/2105.01402
+
+[2] k-Shape: Efficient and Accurate Clustering of Time Series, http://people.cs.uchicago.edu/~jopa/Papers/PaparrizosSIGMOD2015.pdf
+
+[3] Effectiveness of Artificial Intelligence in Stock Market Prediction based on Machine Learning, https://arxiv.org/abs/2107.01031
+
+[4] VADER, https://github.com/cjhutto/vaderSentiment
+
+[5] Values of Top NASDAQ Companies from 2010 to 2020, https://www.kaggle.com/omermetinn/values-of-top-nasdaq-copanies-from-2010-to-2020
+
+[6] Tweets about the Top Companies from 2015 to 2020, https://www.kaggle.com/omermetinn/tweets-about-the-top-companies-from-2015-to-2020
+
+[7] Understanding LSTM Networks, https://colah.github.io/posts/2015-08-Understanding-LSTMs/
+
+## Project Member Responsibilities
+Christopher Raulston - Mining/Analyzing Tweets \
+Finn Morrison - Hierarchical Clustering \
+William Sheppard - Sentimental Analysis \
+Caleb Partin - Predictive Model \
+Mohit Aggarwal - Analysis of Results
+
