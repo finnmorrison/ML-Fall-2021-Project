@@ -115,6 +115,24 @@ We can analyze how each of these combination of features does on the test set:
   8. (Close Value), Volume, Open Value, Low Value, **RMSE: 38282.51159986677**
 ![image](https://user-images.githubusercontent.com/47957718/142135193-c2905446-8e1d-4638-9095-3239815984aa.png)
 
+
+
+Best Feature Combinations (Tesla):
+
+1)  (Close Value), Volume, High Value, low Value, **RMSE: 4776.0253458907755**
+2)  (Close Value), Volume, low Value, **RMSE: 4866.940645985312**
+3)  (Close Value), High Value, low Value, **RMSE: 4935.57234190576**
+4)  (Close Value), low Value, **RMSE: 4974.552449942653,
+5)  (Close Value), Open Value, High Value, **RMSE: 5026.822804101358**
+
+
+1)  (Close Value), Volume, High Value, low Value, **RMSE: 4776.0253458907755**
+
+
+
+
+
+
 ## References
 
 [1] Using Twitter Attribute Information to Predict the Stock Market, https://arxiv.org/abs/2105.01402
