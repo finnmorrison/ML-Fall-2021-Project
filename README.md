@@ -111,3 +111,31 @@ Finn Morrison - Hierarchical Clustering \
 William Sheppard - Sentimental Analysis \
 Caleb Partin - Predictive Model \
 Mohit Aggarwal - Analysis of Results
+
+
+The feature combinations were chosen based off which ones had the lowest average RMSE after performing 10-folds cross-validation on the training data. This was performed using the RNN archiecture of taking into consideration 30 previous days of data, 1 hidden layer with 30 nodes, and a dropout of 0.2.
+
+Best Feature Combinations (Amazon):
+  1. (Close Value), High Value, Low Value, **RMSE: 37834.282204068244**
+  2. (Close Value), Volume, Open Value, High Value, **RMSE: 37921.89313297843**
+  3. (Close Value), High Value, **RMSE: 37934.6007375283**
+  4. (Close Value), Open Value, **RMSE: 38139.58991192261**
+  5. (Close Value), Volume, Open Value, Low Value, **RMSE: 38282.51159986677**
+
+
+We can analyze how each of these combination of features does on the test set:
+
+  1. (Close Value), High Value, Low Value, **RMSE: 37834.282204068244**
+![image](https://user-images.githubusercontent.com/47957718/142135156-e8131463-c8f3-41cf-9b16-e4c6c498c6b6.png)
+
+  3. (Close Value), Volume, Open Value, High Value, **RMSE: 37921.89313297843**
+![image](https://user-images.githubusercontent.com/47957718/142135163-1a1e56a8-ccb7-4ec3-b58a-a034e50127cb.png)
+
+  5. (Close Value), High Value, **RMSE: 37934.6007375283**
+![image](https://user-images.githubusercontent.com/47957718/142135172-51696ff9-89aa-483f-b5c7-5c92fb826458.png)
+
+  7. (Close Value), Open Value, **RMSE: 38139.58991192261**
+![image](https://user-images.githubusercontent.com/47957718/142135176-5e576123-8278-4582-b3f1-d137cc51d44d.png)
+
+  8. (Close Value), Volume, Open Value, Low Value, **RMSE: 38282.51159986677**
+![image](https://user-images.githubusercontent.com/47957718/142135193-c2905446-8e1d-4638-9095-3239815984aa.png)
