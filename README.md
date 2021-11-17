@@ -129,6 +129,7 @@ Best Feature Combinations (Tesla):
 1)  (Close Value), Volume, High Value, low Value, **RMSE: 4776.0253458907755**
 
 
+<img width="288" alt="image" src="https://user-images.githubusercontent.com/61914353/142138149-adb469ec-6dc2-4167-ba61-d92b13d8d382.png">
 
 
 
