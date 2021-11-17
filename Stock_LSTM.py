@@ -2,6 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 import datetime
+import itertools
+from sklearn import model_selection
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
 from tensorflow.keras import Sequential
@@ -27,6 +29,46 @@ To-Do:
     2. A regression between average sentiment of tweets from a certain day
     3. Or any other possible type of neural net or regression we could use for prediction purposes
 """
+
+
+def kfold(data, stock, kf):
+
+    rmse_per_days_per_features = []
+
+    feat = [0, 1, 2, 3]
+    for f in range(0, len(feat)+1):
+        for sub_f in itertools.combinations(feat, f):
+            sub_f = list(sub_f)
+            print(sub_f)
+
+            d = 5
+
+            # i ranges from 1 to 8
+            for i in range(1, 9):
+
+                # days ranges from 5 to 40
+                days = d * i
+
+                X_train, y_train, X_test, y_test, scale = preprocessing(data, stock, days, features=sub_f)
+                kfold = model_selection.KFold(n_splits=kf)
+                avg_rmse = 0
+                for train, test in kfold.split(X_train, y_train):
+                    rmse = predict_stocks_LSTM(X_train[train], y_train[train], X_train[test], y_train[test], scale, days, 1, [days, days], 0.2, 5, False)
+                    avg_rmse += rmse
+                avg_rmse /= kf
+                rmse_per_days_per_features.append([days, avg_rmse, sub_f])
+
+    print(" ")
+    print(" ")
+    for day_rmse in rmse_per_days_per_features:
+        print("days = ", day_rmse[0], ", avg_rmse = ", day_rmse[1], ", features = ", day_rmse[2])
+
+
+def best_combinations(data, stock, kf, days, features):
+
+    X_train, y_train, X_test, y_test, scale = preprocessing(data, stock, days, features)
+    rmse = predict_stocks_LSTM(X_train, y_train, X_test, y_test, scale, days, 1, [days], 0.2, 5, True)
+    return rmse
 
 
 
@@ -97,7 +139,7 @@ Arguments:
 - training_epochs: how many times the training data will be run through for training the LSTM
 """
 
-def predict_stocks_LSTM(X_train, y_train, X_test, y_test, scale, days, hidden_layers, nodes, dropout, training_epochs):
+def predict_stocks_LSTM(X_train, y_train, X_test, y_test, scale, days, hidden_layers, nodes, dropout, training_epochs, show_model=True):
 
     model = Sequential()
 
@@ -121,13 +163,14 @@ def predict_stocks_LSTM(X_train, y_train, X_test, y_test, scale, days, hidden_la
     y_pred = y_pred*scale
     y_test = y_test*scale
 
-    plt.figure(figsize=(14,5))
-    plt.plot(y_test, color='red', label='Real Stock Price')
-    plt.plot(y_pred, color='green', label='Predicted Stock Price')
-    plt.xlabel('Time')
-    plt.ylabel('Stock Price')
-    plt.legend()
-    plt.show()
+    if show_model:
+        plt.figure(figsize=(14,5))
+        plt.plot(y_test, color='red', label='Real Stock Price')
+        plt.plot(y_pred, color='green', label='Predicted Stock Price')
+        plt.xlabel('Time')
+        plt.ylabel('Stock Price')
+        plt.legend()
+        plt.show()
 
     rmse = np.sqrt((1/(y_pred.size)) * np.sum(np.square(y_pred - y_test)))
     print(rmse)
