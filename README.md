@@ -47,6 +47,50 @@ We can analyze how each of these combination of features doeson the test set:
 
 
 
+GOOGLE
+The combinations below were chosen based off which ones had the lowest average RMSE after performing 10-folds cross-validation on the training data where the number of previous days of data taken into consideration varied from 5 to 40 in increments of 5. This was performed using the RNN archiecture of taking into consideration 1 hidden layer with the number of nodes dependent on the number of days, as well as a dropout of 0.2.
+
+Best Day / Feature Combinations (Google):
+1.	Days = 10 / (Close Value), Volume
+2.	Days = 10 / (Close Value), Volume, High Value, Low Value
+3.	Days = 10 / (Close Value), Volume, Open Value, High Value, Low Value
+4.	Days = 15 / (Close Value), Volume, Open Value
+5.	Days = 20 / (Close Value), Volume, Low Value
+
+
+We can analyze how each of these combination of features does on the test set:
+
+1.	Days = 10 / (Close Value), Volume **RMSE: 2294.413724748646**
+![download](https://user-images.githubusercontent.com/72471609/142086499-121f9622-b8e9-4c6c-92fa-b598d3df9912.png)
+
+
+2.	Days = 10 / (Close Value), Volume, High Value, Low Value **RMSE: 2299.369869822851**
+![download-5](https://user-images.githubusercontent.com/72471609/142086523-01caa8bb-187c-4843-9081-b4cf28c1c52c.png)
+
+
+3.	Days = 10 / (Close Value), Volume, Open Value, High Value, Low Value **RMSE: 2294.8827952285183**
+![download-6](https://user-images.githubusercontent.com/72471609/142086539-0a2e3c0b-c656-4f9d-a206-45250b6c821e.png)
+
+
+4.	Days = 15 / (Close Value), Volume, Open Value **RMSE: 2304.103944690263**
+![download-3](https://user-images.githubusercontent.com/72471609/142086581-716ef3b3-a7a0-480d-995d-a1ad061d3ef9.png)
+
+
+5.	Days = 20 / (Close Value), Volume, Low Value **RMSE: 2316.265447861915**
+![download-7](https://user-images.githubusercontent.com/72471609/142086592-c3b120e7-2d91-44b3-a217-47530cdb1b7a.png)
+
+
+Worst Day / Feature Combinations (Google):
+1.	Days = 5 / (Close Value), Open Value, Low Value, **RMSE: 3680.8685713126324**
+2.	Days = 5 / (Close Value), Volume, High Value, **RMSE: 3054.2719010622286**
+3.	Days = 5 / (Close Value), Low Value, **RMSE: 2947.300821742468**
+4.	Days = 5 / (Close Value), **RMSE: 2916.9163665894507**
+5.	Days = 5 / (Close Value), High Value, **RMSE: 2746.198119766924**
+
+
+
+
+
 ## References
 
 [1] Using Twitter Attribute Information to Predict the Stock Market, https://arxiv.org/abs/2105.01402
