@@ -12,7 +12,7 @@ Since the dataset is time-dependnet, we use data before January 1, 2019 as train
 
 ## Results/Discussion
 
-*For now I'm just going to do a rough outline of the results*
+### LSTM
 
 For selecting which features to use, we chose a simple architecture for our LSTM and ran cross-validation on all possible combinations of the stock features: Close Value, Volume, Open Value, High Value, Low Value, Avg Daily Sentiment. Due to the way we are currently structuring our code, Close Value is always used a feature.
 
@@ -152,8 +152,39 @@ Best Feature Combinations (Tesla):
 (Microsoft is missing for now)
 
 
+### Sentiment Linear Regression
 
+A simple yet naive way to examine how sentiment values affect a company's stock price is to see if there is a linear correlation between average daily sentiment and the closing price of a company's stock. To this extenet we performed a linear regression between closing price and average daily sentiment, using the polarity score given by vaderSentiment:
 
+Apple:
+
+![image](https://user-images.githubusercontent.com/45157298/145050258-59fb2533-3bed-4301-811b-df26ab29f621.png)
+
+*R^2 value: 0.2813197875473433*
+
+Tesla:
+
+![image](https://user-images.githubusercontent.com/45157298/145050286-b68e2aad-da78-4ff5-9dad-531969ce6caa.png)
+
+*R^2 value: 0.04001449241679578*
+
+Microsoft:
+
+![image](https://user-images.githubusercontent.com/45157298/145050328-19de6a68-f787-45ff-bdfd-c52ae3a78315.png)
+
+*R^2 value: 0.20991147468090765*
+
+Amazon:
+
+![image](https://user-images.githubusercontent.com/45157298/145050375-899f1d29-8d76-42ab-b8f4-d8850d13cb37.png)
+
+*R^2 value: 0.24346021363669412*
+
+Google:
+
+![image](https://user-images.githubusercontent.com/45157298/145050405-808adba8-179b-4b6a-b1b8-7f10f72c6b8f.png)
+
+*R^2 value: 0.0011274365555208332*
 
 
 ## References
