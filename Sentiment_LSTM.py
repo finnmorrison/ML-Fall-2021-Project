@@ -135,7 +135,7 @@ def predict_stocks_LSTM(X_train, y_train, X_test, y_test, scale, days, hidden_la
     return rmse
 
 
-def linear_regression(data, stock, feature):
+def linear_regression(data, stock, feature, lag):
 
     stock_data = data[data['ticker_symbol'] == stock].copy()
 
@@ -151,12 +151,17 @@ def linear_regression(data, stock, feature):
     stock_data = scaler.fit_transform(stock_data)
     scale = 1/scaler.scale_[0]
 
-    X = stock_data[:,1]
+    X = stock_data[:,1][lag:]
     X = X.reshape(-1,1)
-    y = stock_data[:,0]
+    if (lag == 0):
+        y = stock_data[:,0]
+    else:
+        y = stock_data[:,0][:-lag]
     y = y.reshape(-1,1)
 
     plt.scatter(X,y)
+    plt.xlabel("Sentiment")
+    plt.ylabel("Closing Stock Price")
     plt.show()
 
     reg = LinearRegression().fit(X, y)
@@ -197,8 +202,18 @@ def addSentiments(data, stock, tweet_ids, tweets):
         prev_date = date
 
     stock_data['sentiments'] = 0
+
+    first_score = sentiments[0][1]
+
     for (date, score) in sentiments:
         stock_data.loc[stock_data.day_date==date, 'sentiments'] = score
+
+    for i in range(len(stock_data)):
+        if stock_data.iloc[i]['sentiments'] == 0:
+            if i == 0:
+                stock_data.at[i, 'sentiments'] = first_score
+            else:
+                stock_data.at[i, 'sentiments'] = stock_data.iloc[i-1]['sentiments']
     return stock_data
 
 
