@@ -254,4 +254,27 @@ It's interesting to compare this with the results of the linear regression. In g
 
 [7] Understanding LSTM Networks, https://colah.github.io/posts/2015-08-Understanding-LSTMs/
 
+APPLE
+
+<img width="527" alt="image" src="https://user-images.githubusercontent.com/61914353/145162040-c8931008-b8e4-4db5-800a-25d8d4ee36fd.png">
+
+
+TESLA
+
+<img width="527" alt="image" src="https://user-images.githubusercontent.com/61914353/145162110-42ecc142-a8c7-474f-9e51-d12e257d1c4e.png">
+
+MICROO
+<img width="527" alt="image" src="https://user-images.githubusercontent.com/61914353/145162154-3ea8c5c9-1d8b-41a5-b84d-56f2897af235.png">
+
+
+AMAZZ
+
+<img width="527" alt="image" src="https://user-images.githubusercontent.com/61914353/145162188-b39475df-fb6e-4d2e-9349-4347f4f787b3.png">
+
+
+GOOGLE
+
+<img width="527" alt="image" src="https://user-images.githubusercontent.com/61914353/145162208-0ab060e3-dd5d-48bf-b442-65c5e0b500f0.png">
+
+
 
