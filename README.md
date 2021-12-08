@@ -47,9 +47,7 @@ We can analyze how each of these combination of features doeson the test set:
 
 
 
-GOOGLE
-
-The combinations below were chosen based off which ones had the lowest average RMSE after performing 10-folds cross-validation on the training data where the number of previous days of data taken into consideration varied from 5 to 40 in increments of 5. This was performed using the RNN archiecture of taking into consideration 1 hidden layer with the number of nodes dependent on the number of days, as well as a dropout of 0.2.
+For Google, the combinations below were chosen based off which ones had the lowest average RMSE after performing 10-folds cross-validation on the training data where the number of previous days of data taken into consideration varied from 5 to 40 in increments of 5. This was performed using the RNN archiecture of taking into consideration 1 hidden layer with the number of nodes dependent on the number of days, as well as a dropout of 0.2.
 
 Best Day / Feature Combinations (Google):
 1.	Days = 10 / Features = (Close Value), Volume
