@@ -220,6 +220,7 @@ Amazon:
 
 The two things of note from this analysis is how for Apple, the highest correlation is achieved with a two month lag. This shows possibly that certain sentiments and feelings about apple stock did not manifest in the stock price until two months later. The other intesting thing to note is that changing the lag does not heavily influence the regression for either company. At least not in this two month window. This could hint at the fact that for many companies, how general sentiment influences the price can be a gradual process and may take many months to manifest in terms of the price.
 
+## Conclusions
 
 ## References
 
