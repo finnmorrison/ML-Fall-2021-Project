@@ -237,10 +237,4 @@ The two things of note from this analysis is how for Apple, the highest correlat
 
 [7] Understanding LSTM Networks, https://colah.github.io/posts/2015-08-Understanding-LSTMs/
 
-## Project Member Responsibilities
-Christopher Raulston - Mining/Analyzing Tweets \
-Finn Morrison - Hierarchical Clustering \
-William Sheppard - Sentimental Analysis \
-Caleb Partin - Predictive Model \
-Mohit Aggarwal - Analysis of Results
 
