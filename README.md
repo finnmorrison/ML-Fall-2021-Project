@@ -186,6 +186,40 @@ Google:
 
 *R^2 value: 0.0011274365555208332*
 
+We can extend this analysis by considering a lag component to the linear regression. That is, we associate the average daily sentiment of one day with the stock price a certain number of days later. Let's look at two companies that already have some positive correlation in regression, in this case Apple and Amazon. And we will look at how the R^2 value changes when we change this lag variable.
+
+Apple:
+- 0 Day Lag: 0.2813197875473433
+- 5 Day Lag: 0.27530696615020944
+- 10 Day Lag: 0.2722549818900133
+- 15 Day Lag: 0.2734955583157106
+- 20 Day Lag: 0.27152019709246167
+- 25 Day Lag: 0.2717001177102448
+- 30 Day Lag: 0.2720236359406325
+- 35 Day Lag: 0.27729167630505647
+- 40 Day Lag: 0.2862514252654186
+- 45 Day Lag: 0.29268776795477913
+- 50 Day Lag: 0.29711182883935605
+- 55 Day Lag: 0.30178280360582266
+- **60 Day Lag: 0.311770734397239**
+
+Amazon:
+- **0 Day Lag: 0.24346021363669412**
+- 5 Day Lag: 0.23609447615100743
+- 10 Day Lag: 0.23044712975079973
+- 15 Day Lag: 0.23164063741307594
+- 20 Day Lag: 0.2270248051323045
+- 25 Day Lag: 0.21987060376916856
+- 30 Day Lag: 0.2174625788266198
+- 35 Day Lag: 0.21892752288376172
+- 40 Day Lag: 0.21784266747176873
+- 45 Day Lag: 0.21741909672585935
+- 50 Day Lag: 0.22217990628041973
+- 55 Day Lag: 0.2166414388138581
+- 60 Day Lag: 0.2174400895944305
+
+The two things of note from this analysis is how for Apple, the highest correlation is achieved with a two month lag. This shows possibly that certain sentiments and feelings about apple stock did not manifest in the stock price until two months later. The other intesting thing to note is that changing the lag does not heavily influence the regression for either company. At least not in this two month window. This could hint at the fact that for many companies, how general sentiment influences the price can be a gradual process and may take many months to manifest in terms of the price.
+
 
 ## References
 
