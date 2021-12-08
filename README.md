@@ -218,7 +218,14 @@ The two things of note from this analysis is how for Apple, the highest correlat
 
 ### Feature Correlation
 
-AAPL:![download](https://user-images.githubusercontent.com/47957718/145159811-43cfa784-bfce-41b8-bf5b-20beb29b0514.png)
+AAPL:
+![download](https://user-images.githubusercontent.com/47957718/145159811-43cfa784-bfce-41b8-bf5b-20beb29b0514.png)
+
+AMZN:
+![download](https://user-images.githubusercontent.com/47957718/145160686-70cf4e48-c4b4-4437-a746-6daa645e0c27.png)
+
+
+
 
 
 
