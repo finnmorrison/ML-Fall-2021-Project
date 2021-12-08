@@ -216,6 +216,14 @@ Amazon:
 
 The two things of note from this analysis is how for Apple, the highest correlation is achieved with a two month lag. This shows possibly that certain sentiments and feelings about apple stock did not manifest in the stock price until two months later. The other intesting thing to note is that changing the lag does not heavily influence the regression for either company. At least not in this two month window. This could hint at the fact that for many companies, how general sentiment influences the price can be a gradual process and may take many months to manifest in terms of the price.
 
+### Feature Correlation
+
+AAPL:![download](https://user-images.githubusercontent.com/47957718/145159811-43cfa784-bfce-41b8-bf5b-20beb29b0514.png)
+
+
+
+
+
 ## Conclusions
 
 The impact of sentiment on a company's stock price are complex and varied, and often times it seems to also depend on the company. When determining which financial features are best to use in a predictive model, the results are highly varied. Between the 6 financial indicators given to us in the data, the various combinations of them to predict closing price could differ in their usefulness between the major companies we explored. However, when including the sentiment values of tweets in Apple Stock, we instantly see that this feature (alongside closing price) becomes one of the most useful to consider in our model.
