@@ -218,6 +218,7 @@ The two things of note from this analysis is how for Apple, the highest correlat
 
 ### Feature Correlation
 
+A simple way to view how our features relate to one one another is to calculate Pearson correlation coefficients across the different features. We are primarily concerned with how sentiment is related to closing volume, though it is also interesting to see how it relates to volume, and volume, to other features respectively. We noticed from sentiment regression analysis that for TSLA and GOOGL, closing price was weakly related to sentiment; this pattern was confirmed here.
 
 AAPL:
 
